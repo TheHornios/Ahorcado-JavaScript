@@ -1,17 +1,24 @@
-var vidas = 7;
 var palabras = ["diarrea","cancer","sida","epatitis","cirrosis","neurisma","embolia","zika","malaria","viruela","marburgo","tuberculosis"];
+var imgs = ["+------+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>+------+<br/>",
+"+------+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>+------+<br/>",
+"+------+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|\\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>     +------+<br/>",
+"+------+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/|\\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>     +------+<br/>",
+"+------+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/|\\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>     +------+<br/>",
+"+------+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/|\\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ \\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>     +------+<br/>",
+"+------+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/|\\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ \\ &nbsp;|<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>     +------+<br/>"];
 var letrasMalas = new Array();
+var vidas = imgs.length;
 var letrasBuenas = new Array();
 var palabraActual = "";
-var reiniciar = false;
+var reiniciar = false; //&nbsp;
 
 function crearJuego(){
     selecionarPAlabra();
-    
+    document.getElementById("img").innerHTML = imgs[0];
     
     document.getElementById("rallitas").innerHTML = crearRallitas("-",80);
     document.getElementById("boton").onclick = function(){aletra()};
-    document.getElementById("intentos").innerHTML = vidas;
+    document.getElementById("intentos").innerHTML = vidas-1;
 }
 
 function selecionarPAlabra(){
@@ -19,6 +26,7 @@ function selecionarPAlabra(){
 }
 
 function historial(){
+    document.getElementById("img").innerHTML = imgs[imgs.length-vidas];
     var historial = "";
     for(var i = 0;i<letrasBuenas.length;i++){
         historial+="<b>"+letrasBuenas[i]+"</b>";
@@ -38,7 +46,7 @@ function aletra(){
         
     }
 
-    if(vidas==0){
+    if(vidas==1){
         document.getElementById("Cabecera").innerHTML = "You Lose, F5 to restart";
         reiniciar = true;
     }
@@ -55,13 +63,12 @@ function comprobarLetras(){
     var bolean = false;
     for(var i= 0;i<palabraActual.length;i++){
         if(palabraActual.charAt(i)==document.getElementById("letra").value){
-
             if(letrasBuenas.length==0){
                 letrasBuenas[0] = document.getElementById("letra").value;
             }else{
                 var bolean1 = false;
-                for(var i= 0;i<letrasBuenas.length;i++){
-                    if(letrasBuenas[i]==document.getElementById("letra").value){
+                for(var w= 0;w<letrasBuenas.length;w++){
+                    if(letrasBuenas[w]==document.getElementById("letra").value){
                         bolean1 = true;
                     }
                 }
@@ -78,7 +85,7 @@ function comprobarLetras(){
         if(letrasMalas.length==0){
             letrasMalas[0] = document.getElementById("letra").value;
             vidas --;
-            document.getElementById("intentos").innerHTML = vidas;
+            document.getElementById("intentos").innerHTML = vidas-1;
         }else{
             var bolean1 = false;
             for(var i= 0;i<letrasMalas.length;i++){
@@ -89,7 +96,7 @@ function comprobarLetras(){
             if(!bolean1){
                 letrasMalas[letrasMalas.length] = document.getElementById("letra").value;
                 vidas --;
-                document.getElementById("intentos").innerHTML = vidas;
+                document.getElementById("intentos").innerHTML = vidas-1;
             }
         }
     }
